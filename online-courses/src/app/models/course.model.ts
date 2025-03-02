@@ -1,10 +1,8 @@
 export class Course {
     constructor(
-        public id: string | null,
+        public id: number,
         public title: string,
         public description: string,
-        public teacherId: string
+        public teacherId: number
     ) {}
   }
-
- 

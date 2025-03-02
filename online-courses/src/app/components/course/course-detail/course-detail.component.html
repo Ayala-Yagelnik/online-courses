@@ -1,0 +1,12 @@
+@if(course)
+{
+<div>
+    <h2>{{ course?.title }}</h2>
+    <p>{{ course?.description }}</p>
+    <button mat-button [routerLink]="['/courses', course.id, 'lessons']">View Lessons</button>
+</div>
+}
+@else
+{
+<h2>Course not found!</h2>
+}

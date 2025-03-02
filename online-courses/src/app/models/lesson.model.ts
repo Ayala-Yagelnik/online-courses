@@ -1,8 +1,8 @@
 export class Lesson {
     constructor(
-      public id: string,
+      public id: number,
       public title: string,
       public content: string,
-      public courseId: string
+      public courseId: number
     ) {}
   }
