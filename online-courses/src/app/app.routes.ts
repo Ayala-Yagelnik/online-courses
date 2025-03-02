@@ -11,20 +11,22 @@ import { UserDetailComponent } from './components/user/user-detail/user-detail.c
 import { UserManageComponent } from './components/user/user-manage/user-manage.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'courses', component: CourseListComponent },
-  { path: 'courses/:id', component: CourseDetailComponent },
-  { path: 'manage-courses', component: CourseManageComponent },
-  { path: 'courses/:courseId/lessons', component: LessonListComponent },
-  { path: 'courses/:courseId/lessons/:id', component: LessonDetailComponent },
-  { path: 'manage-lessons', component: LessonManageComponent },
-  { path: 'users/:id', component: UserDetailComponent },
-  { path: 'manage-users', component: UserManageComponent },
-  { path: 'profile', component: ProfileComponent }
+  { path: 'courses', component: CourseListComponent, canActivate: [AuthGuard] }, 
+  { path: 'courses/:id', component: CourseDetailComponent, canActivate: [AuthGuard] }, 
+  { path: 'manage-courses', component: CourseManageComponent, canActivate: [AuthGuard] }, 
+  { path: 'courses/:courseId/lessons', component: LessonListComponent, canActivate: [AuthGuard] },
+  { path: 'courses/:courseId/lessons/:id', component: LessonDetailComponent, canActivate: [AuthGuard] },
+  { path: 'manage-lessons', component: LessonManageComponent, canActivate: [AuthGuard] }, 
+  { path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard] }, 
+  { path: 'manage-users', component: UserManageComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] } 
 ];
+
 
 

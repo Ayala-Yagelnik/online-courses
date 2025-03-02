@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="navbar">
+<!-- <mat-toolbar color="primary" class="navbar">
   <mat-icon class="logo-icon">school</mat-icon>
   <span class="logo-text">Online Courses</span>
   <span class="spacer"></span>
@@ -22,4 +22,31 @@
     <mat-icon>person_add</mat-icon>
     Register
   </a>
+</mat-toolbar> -->
+<mat-toolbar color="primary" class="navbar">
+  <mat-icon class="logo-icon">school</mat-icon>
+  <span class="logo-text">Online Courses</span>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/" class="nav-button">
+    <mat-icon>home</mat-icon>
+    Home
+  </a>
+  @if(isLoggedIn()){
+  <a mat-button routerLink="/courses" class="nav-button">
+    <mat-icon>book</mat-icon>
+    Courses
+  </a>
+  <a mat-button routerLink="/profile" class="nav-button">
+    <mat-icon>account_circle</mat-icon>
+    Profile
+  </a>
+  <button mat-button (click)="logout()" >Logout</button>
+  }
+  @else{
+  <button mat-button (click)="openAuthDialog()" >
+    <mat-icon>login</mat-icon>
+    Login/Register
+  </button>
+}
+  
 </mat-toolbar>
