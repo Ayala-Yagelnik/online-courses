@@ -1,13 +1,4 @@
-mat-tab-group {
-    width: 100%;
-  }
-  
-  mat-tab {
-    padding: 16px;
-  }
-  
-  /* filepath: online-courses/src/app/components/authentication/login/login.component.css */
-  .login-container {
+.register-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,15 +10,7 @@ mat-tab-group {
     margin-bottom: 16px;
   }
   
-  /* filepath: online-courses/src/app/components/authentication/register/register.component.css */
-  .register-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 16px;
-  }
-  
-  mat-form-field {
+  .auth-button {
     width: 100%;
-    margin-bottom: 16px;
+    margin-top: 16px;
   }

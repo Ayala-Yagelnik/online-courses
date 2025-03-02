@@ -1,9 +1,9 @@
 .navbar {
     display: flex;
     align-items: center;
-    padding: 16px 32px; /* מרווחים טובים */
-    background-color: #06aa1f; /* צבע ראשי */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* צל קל */
+    padding: 16px 32px;
+    background-color: #00e622;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .logo-icon {
@@ -19,22 +19,28 @@
 }
 
 .spacer {
-    flex: 1 1 auto; /* דוחף את הכפתורים לצד ימין */
+    flex: 1 1 auto;
 }
 
 .nav-button {
-    color: white; /* צבע טקסט */
-    margin-left: 24px; /* מרווח בין הכפתורים */
-    padding: 16px 20px; /* פדינג לכפתורים */
-    border-radius: 4px; /* פינות מעוגלות */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* מעבר חלק */
-    position: relative; /* הוספת position כדי למנוע השפעה על ה-navbar */
+    color: white; 
+    margin-left: 24px; 
+    padding: 16px 20px; 
+    border-radius: 4px; 
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+    position: relative;
 }
 
 .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* אפקט ריחוף קל */
+    background-color: rgba(255, 255, 255, 0.2); 
 }
 
 .nav-button mat-icon {
-    margin-right: 6px; /* רווח בין האייקון לטקסט */
+    margin-right: 6px; 
+}
+
+.login-button{
+    margin-left: 24px; 
+    padding: 16px 20px; 
+    background-color:white;
 }
