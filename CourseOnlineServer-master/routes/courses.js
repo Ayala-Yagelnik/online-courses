@@ -1,7 +1,7 @@
 module.exports = (db) => {
-const express = require('express');
-const { checkAuth, checkTeacher } = require('../middlewares/auth')(db);
-const Course = require('../models/Course');
+  const express = require('express');
+  const { checkAuth, checkTeacher } = require('../middlewares/auth')(db);
+  const Course = require('../models/Course');
 
   const router = express.Router();
   const courseModel = Course(db);
@@ -60,6 +60,23 @@ const Course = require('../models/Course');
       }
       res.status(200).json({ message: 'Course deleted successfully' });
     });
+  });
+
+  // Add student to course
+  router.post('/:courseId/enroll', checkAuth, (req, res) => {
+    const { courseId } = req.params;
+    const { userId } = req.body;
+    db.run(
+      'INSERT INTO student_courses (userId, courseId) VALUES (?, ?)',
+      [userId, courseId],
+      function (err) {
+        if (err) {
+          console.error('Error enrolling student in course:', err);
+          return res.status(500).json({ message: 'Error enrolling student in course' });
+        }
+        res.status(201).json({ message: 'Student enrolled in course successfully' });
+      }
+    );
   });
 
   return router;
