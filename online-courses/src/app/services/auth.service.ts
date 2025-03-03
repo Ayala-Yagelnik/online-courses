@@ -25,7 +25,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
   getToken(): string | null {
-    return sessionStorage.getItem('authToken');
+    return localStorage.getItem('authToken') || '';
   }
   logout() {
     this.loggedIn = false; 

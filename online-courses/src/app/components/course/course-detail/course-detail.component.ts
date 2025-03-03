@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Course } from '../../../models/course.model';
 import { CourseService } from '../../../services/course.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -13,13 +14,20 @@ import { CourseService } from '../../../services/course.service';
 export class CourseDetailComponent implements OnInit {
   course: Course | undefined;
 
-  constructor(private route: ActivatedRoute, private courseService: CourseService) { }
+  constructor(
+    private route: ActivatedRoute,
+     private courseService: CourseService,
+     private authService: AuthService
+    ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.courseService.getCourseById(+id, 'your-token-here').subscribe(course => {
+    const token = this.authService.getToken();
+    if (id && token) {
+      this.courseService.getCourseById(+id, token).subscribe(course => {
         this.course = course;
+      }, error => {
+        console.error('Error fetching course details:', error);
       });
     }
   }
