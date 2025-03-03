@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { CourseListComponent } from './components/course/course-list/course-list.component';
+import { ManageMyCoursesComponent } from './components/course/manage-my-courses/manage-my-courses.component';
 import { CourseDetailComponent } from './components/course/course-detail/course-detail.component';
 import { CourseManageComponent } from './components/course/course-manage/course-manage.component';
 import { LessonListComponent } from './components/lesson/lesson-list/lesson-list.component';
@@ -19,7 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'courses', component: CourseListComponent },
   { path: 'courses/:id', component: CourseDetailComponent },
-  { path: 'manage-courses', component: CourseManageComponent, canActivate: [AuthGuard] },
+  { path: 'manage-courses', component: ManageMyCoursesComponent, canActivate: [AuthGuard] },
   { path: 'courses/:courseId/lessons', component: LessonListComponent, canActivate: [AuthGuard] },
   { path: 'courses/:courseId/lessons/:id', component: LessonDetailComponent, canActivate: [AuthGuard] },
   { path: 'manage-lessons', component: LessonManageComponent, canActivate: [AuthGuard] },

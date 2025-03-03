@@ -4,12 +4,16 @@
       <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
         <input matInput formControlName="title">
-        <mat-error *ngIf="courseForm.get('title')?.hasError('required')">Title is required</mat-error>
+        @if(courseForm.get('title')?.hasError('required')){
+        <mat-error >Title is required</mat-error>
+        }
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description"></textarea>
-        <mat-error *ngIf="courseForm.get('description')?.hasError('required')">Description is required</mat-error>
+        @if(courseForm.get('description')?.hasError('required')){
+        <mat-error >Description is required</mat-error>
+        }
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit">Add Course</button>
     </form>

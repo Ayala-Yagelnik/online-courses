@@ -19,19 +19,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   isTeacher: boolean = false;
   private authSubscription: Subscription = new Subscription();
+  private teacherSubscription: Subscription = new Subscription();
 
   constructor(private authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.authSubscription = this.authService.isLoggedIn().subscribe(loggedIn => {
       this.isLoggedIn = loggedIn;
-      this.isTeacher = this.authService.isTeacher();
+    });
+
+    this.teacherSubscription = this.authService.isTeacher().subscribe(isTeacher => {
+      this.isTeacher = isTeacher;
     });
   }
 
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
+    if (this.teacherSubscription) {
+      this.teacherSubscription.unsubscribe();
     }
   }
 

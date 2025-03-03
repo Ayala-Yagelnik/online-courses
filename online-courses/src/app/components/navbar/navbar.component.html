@@ -21,23 +21,17 @@
     My Courses
   </button>
   @if(isTeacher){
-    <button mat-button routerLink="/teacher-courses" class="nav-button">
+    <button mat-button routerLink="/manage-courses" class="nav-button">
       <mat-icon>school</mat-icon>
-      My Courses
+      Manage Courses
     </button>
-   
-  <button mat-button routerLink="/profile" class="nav-button">
-    <mat-icon>edit</mat-icon>
-    manage courses
-  </button>
-}
-  <button mat-button class="login-button" (click)="logout()" >Logout</button>
+  }
+  <button mat-button class="login-button" (click)="logout()">Logout</button>
   }
   @else{
-  <button mat-button class="login-button" (click)="openAuthDialog()" >
+  <button mat-button class="login-button" (click)="openAuthDialog()">
     <mat-icon>login</mat-icon>
     Login/Register
   </button>
-}
-  
+  }
 </mat-toolbar>

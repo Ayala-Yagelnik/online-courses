@@ -7,6 +7,7 @@ import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-course-detail',
   templateUrl: './course-detail.component.html',
+  standalone: true,
   styleUrls: ['./course-detail.component.css']
 })
 export class CourseDetailComponent implements OnInit {

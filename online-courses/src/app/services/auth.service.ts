@@ -10,6 +10,7 @@ import { User, UserLogin } from '../models/user.model';
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
+  private teacherStatus = new BehaviorSubject<boolean>(this.checkIfTeacher());
 
   constructor(private http: HttpClient) { }
 
@@ -24,9 +25,8 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  isTeacher(): boolean {
-    const user = this.getUser();
-    return user && user.role === 'teacher';
+  isTeacher(): Observable<boolean> {
+    return this.teacherStatus.asObservable();
   }
 
   register(user: User): Observable<any> {
@@ -35,6 +35,7 @@ export class AuthService {
         if (response.token) {
           this.setToken(response.token);
           this.loggedIn.next(true);
+          this.teacherStatus.next(this.checkIfTeacher());
         }
       })
     );
@@ -46,6 +47,7 @@ export class AuthService {
         if (response.token) {
           this.setToken(response.token);
           this.loggedIn.next(true);
+          this.teacherStatus.next(this.checkIfTeacher());
         }
       })
     );
@@ -73,6 +75,7 @@ export class AuthService {
   logout(): void {
     this.clearToken();
     this.loggedIn.next(false);
+    this.teacherStatus.next(false);
   }
 
   getUser(): any {
@@ -80,5 +83,10 @@ export class AuthService {
     if (!token) return null;
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.user;
+  }
+
+  private checkIfTeacher(): boolean {
+    const user = this.getUser();
+    return user && user.role === 'teacher';
   }
 }

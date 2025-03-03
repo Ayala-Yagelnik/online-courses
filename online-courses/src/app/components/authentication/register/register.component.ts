@@ -21,7 +21,7 @@ export class RegisterComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private dialogRef: MatDialogRef<RegisterComponent>
-  ) {
+    ) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -32,11 +32,12 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
+      console.log('Registering:', this.registerForm.value);
       this.authService.register(this.registerForm.value).subscribe(response => {
-        // Handle registration success
+        console.log('Registration successful:', response);
         this.dialogRef.close();
       }, error => {
-        // Handle registration error
+        console.error('Registration error:', error);
       });
     }
   }
