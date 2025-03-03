@@ -31,10 +31,9 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(response => {
-        // Handle login success
         this.dialogRef.close();
       }, error => {
-        // Handle login error
+        console.error('Error logging in:', error);
       });
     }
   }

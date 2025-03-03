@@ -16,10 +16,16 @@
     <mat-icon>account_circle</mat-icon>
     Profile
   </button>
+  <button mat-button routerLink="/my-courses" class="nav-button">
+    <mat-icon>library_books</mat-icon>
+    My Courses
+  </button>
+  @if(isTeacher){
   <button mat-button routerLink="/profile" class="nav-button">
-    <!-- <mat-icon></mat-icon> -->
+    <mat-icon>edit</mat-icon>
     manage courses
   </button>
+}
   <button mat-button class="login-button" (click)="logout()" >Logout</button>
   }
   @else{

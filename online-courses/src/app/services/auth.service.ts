@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User, UserLogin } from '../models/user.model';
 
@@ -9,12 +9,24 @@ import { User, UserLogin } from '../models/user.model';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/auth';
-  private loggedIn = false;
+  private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
 
   constructor(private http: HttpClient) { }
 
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  private hasToken(): boolean {
+    if (typeof localStorage === 'undefined') {
+      return false;
+    }
+    return !!localStorage.getItem('authToken');
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+
+  isTeacher(): boolean {
+    const user = this.getUser();
+    return user && user.role === 'teacher';
   }
 
   register(user: User): Observable<any> {
@@ -22,7 +34,7 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           this.setToken(response.token);
-          this.loggedIn = true;
+          this.loggedIn.next(true);
         }
       })
     );
@@ -33,26 +45,40 @@ export class AuthService {
       tap((response: any) => {
         if (response.token) {
           this.setToken(response.token);
-          this.loggedIn = true;
+          this.loggedIn.next(true);
         }
       })
     );
   }
 
   getToken(): string {
+    if (typeof localStorage === 'undefined') {
+      return '';
+    }
     return localStorage.getItem('authToken') || '';
   }
 
   setToken(token: string): void {
-    localStorage.setItem('authToken', token);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('authToken', token);
+    }
   }
 
   clearToken(): void {
-    localStorage.removeItem('authToken');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.removeItem('authToken');
+    }
   }
 
   logout(): void {
     this.clearToken();
-    this.loggedIn = false;
+    this.loggedIn.next(false);
+  }
+
+  getUser(): any {
+    const token = this.getToken();
+    if (!token) return null;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.user;
   }
 }
