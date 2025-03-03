@@ -17,16 +17,13 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'courses', component: CourseListComponent, canActivate: [AuthGuard] }, 
-  { path: 'courses/:id', component: CourseDetailComponent, canActivate: [AuthGuard] }, 
-  { path: 'manage-courses', component: CourseManageComponent, canActivate: [AuthGuard] }, 
+  { path: 'courses', component: CourseListComponent },
+  { path: 'courses/:id', component: CourseDetailComponent },
+  { path: 'manage-courses', component: CourseManageComponent, canActivate: [AuthGuard] },
   { path: 'courses/:courseId/lessons', component: LessonListComponent, canActivate: [AuthGuard] },
   { path: 'courses/:courseId/lessons/:id', component: LessonDetailComponent, canActivate: [AuthGuard] },
-  { path: 'manage-lessons', component: LessonManageComponent, canActivate: [AuthGuard] }, 
-  { path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard] }, 
+  { path: 'manage-lessons', component: LessonManageComponent, canActivate: [AuthGuard] },
+  { path: 'users/:id', component: UserDetailComponent, canActivate: [AuthGuard] },
   { path: 'manage-users', component: UserManageComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] } 
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ];
-
-
-

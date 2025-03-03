@@ -15,14 +15,16 @@ import { AuthDialogComponent } from '../authentication/auth-dialog/auth-dialog.c
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule]
 })
 export class NavbarComponent { 
+  isLoggedIn: boolean = false;
+
   constructor(private authService: AuthService, private dialog: MatDialog) {}
 
-  isLoggedIn(): boolean {
-    console.log("logged in: "+this.authService.isLoggedIn());
-    return this.authService.isLoggedIn();
+  ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   logout() {
+    this.isloggedIn = false;
     this.authService.logout(); 
   }
   

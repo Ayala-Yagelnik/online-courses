@@ -1,9 +1,12 @@
 @if(course)
 {
 <div>
-    <h2>{{ course?.title }}</h2>
-    <p>{{ course?.description }}</p>
-    <button mat-button [routerLink]="['/courses', course.id, 'lessons']">View Lessons</button>
+    <h2>{{ course.title }}</h2>
+    <p>{{ course.description }}</p>
+    @if(isLoggedIn)
+    {
+    <button mat-button (click)="enroll()">Enroll in this Course</button>
+    }
 </div>
 }
 @else

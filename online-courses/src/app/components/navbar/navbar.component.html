@@ -6,14 +6,19 @@
     <mat-icon>home</mat-icon>
     Home
   </button>
-  @if(isLoggedIn()){
   <button mat-button routerLink="/courses" class="nav-button">
     <mat-icon>book</mat-icon>
     Courses
   </button>
+  @if(isLoggedIn){
+  
   <button mat-button routerLink="/profile" class="nav-button">
     <mat-icon>account_circle</mat-icon>
     Profile
+  </button>
+  <button mat-button routerLink="/profile" class="nav-button">
+    <!-- <mat-icon></mat-icon> -->
+    manage courses
   </button>
   <button mat-button class="login-button" (click)="logout()" >Logout</button>
   }

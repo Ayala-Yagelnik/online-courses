@@ -34,7 +34,7 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     const token = this.authService.getToken()||''; 
-    this.courseService.getCourses(token).subscribe(courses => {
+    this.courseService.getCourses().subscribe(courses => {
       this.courses = courses;
     }, error => {
       console.error('Error fetching courses:', error);
