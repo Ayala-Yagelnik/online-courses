@@ -7,7 +7,7 @@ module.exports = (db) => {
   const courseModel = Course(db);
 
   // Get all courses
-  router.get('/', checkAuth, async (req, res) => {
+  router.get('/', async (req, res) => {
     courseModel.findAll((err, courses) => {
       if (err) {
         return res.status(500).json({ message: 'Error fetching courses' });
@@ -17,7 +17,7 @@ module.exports = (db) => {
   });
 
   // Get course by ID
-  router.get('/:id', checkAuth, async (req, res) => {
+  router.get('/:id', async (req, res) => {
     const { id } = req.params;
     courseModel.findById(id, (err, course) => {
       if (err || !course) {

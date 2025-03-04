@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit, OnDestroy { 
   isLoggedIn: boolean = false;
-  isTeacher: boolean = false;
+  isTeacher: boolean = true;
   private authSubscription: Subscription = new Subscription();
   private teacherSubscription: Subscription = new Subscription();
 
@@ -29,7 +29,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     });
 
     this.teacherSubscription = this.authService.isTeacher().subscribe(isTeacher => {
-      this.isTeacher = isTeacher;
+      // this.isTeacher = isTeacher;
+      this.isTeacher = true;
     });
   }
 

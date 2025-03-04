@@ -32,7 +32,7 @@ export class LessonManageComponent implements OnInit {
   loadLessons() {
     const courseId = this.lessonForm.get('courseId')?.value;
     if (courseId) {
-      this.lessonService.getLessons(courseId, 'your_token_here').subscribe(lessons => {
+      this.lessonService.getLessons(courseId).subscribe(lessons => {
         this.lessons = lessons;
       });
     }

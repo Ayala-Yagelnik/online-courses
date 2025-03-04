@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-course-list',
@@ -30,10 +29,9 @@ import { AuthService } from '../../../services/auth.service';
 export class CourseListComponent implements OnInit {
   courses: Course[] = [];
 
-  constructor(private courseService: CourseService, private authService: AuthService) { }
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
-    const token = this.authService.getToken()||''; 
     this.courseService.getCourses().subscribe(courses => {
       this.courses = courses;
     }, error => {

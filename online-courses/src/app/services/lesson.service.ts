@@ -11,9 +11,8 @@ export class LessonService {
 
   constructor(private http: HttpClient) { }
 
-  getLessons(courseId: number, token: string): Observable<Lesson[]> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Lesson[]>(`${this.apiUrl}/${courseId}/lessons`, { headers });
+  getLessons(courseId: number): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(`${this.apiUrl}/${courseId}/lessons`);
   }
 
   getLessonById(courseId: number, id: number, token: string): Observable<Lesson> {

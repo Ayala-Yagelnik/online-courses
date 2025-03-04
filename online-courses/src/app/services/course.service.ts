@@ -15,9 +15,8 @@ export class CourseService {
     return this.http.get<Course[]>(this.apiUrl);
   }
 
-  getCourseById(id: number, token: string): Observable<Course> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Course>(`${this.apiUrl}/${id}`, { headers });
+  getCourseById(id: number): Observable<Course> {
+    return this.http.get<Course>(`${this.apiUrl}/${id}`);
   }
 
   getUserCourses(token: string): Observable<Course[]> {

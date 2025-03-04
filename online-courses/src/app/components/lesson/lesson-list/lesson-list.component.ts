@@ -30,7 +30,7 @@ export class LessonListComponent implements OnInit {
   ngOnInit(): void {
     const courseId = this.route.snapshot.paramMap.get('courseId');
     if (courseId) {
-      this.lessonService.getLessons(+courseId, 'your-token-here').subscribe(lessons => {
+      this.lessonService.getLessons(+courseId).subscribe(lessons => {
         this.lessons = lessons;
       });
     }
