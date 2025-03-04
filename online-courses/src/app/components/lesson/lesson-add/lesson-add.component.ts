@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class LessonAddComponent implements OnInit {
   lessonForm: FormGroup;
-  courseId: number;
+  courseId: number=0;
 
   constructor(private fb: FormBuilder, private lessonService: LessonService, private authService: AuthService, private route: ActivatedRoute) {
     this.lessonForm = this.fb.group({
