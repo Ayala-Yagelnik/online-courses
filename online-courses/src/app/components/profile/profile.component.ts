@@ -40,7 +40,11 @@ export class ProfileComponent implements OnInit{
   
   async loadUserProfile(token: string): Promise<void> {
     try {
-      this.user = await firstValueFrom(this.userService.getUserById(this.authService.getUser().userId, token));
+      const user = this.authService.getUser();
+      if (!user) {
+        throw new Error('User not found');
+      }
+      this.user = await firstValueFrom(this.userService.getUserById(user.userId, token));
       this.profileForm.setValue({
         name: this.user.name,
         role: this.user.role
