@@ -1,16 +1,17 @@
 @if(course)
 {
-<div class="course-detail-container">
-  <h2>{{ course.title }}</h2>
-  <p>{{ course.description }}</p>
-  <app-lesson-list [courseId]="course.id"></app-lesson-list>
-  @if(isLoggedIn)
-  {
-    <button mat-button (click)="enroll()">Enroll in this Course</button>
-  }
-</div>
+  <div class="course-detail-container">
+    <div class="course-header">
+      <h2>{{ course.title }}</h2>
+      <p>{{ course.description }}</p>
+      <button mat-raised-button class="enroll-button" (click)="enroll()">Enroll in this Course</button>
+    </div>
+    <div class="course-content">
+      <app-lesson-list [courseId]="course.id"></app-lesson-list>
+    </div>
+  </div>
 }
 @else
 {
-<h2>Course not found!</h2>
+  <h2>Course not found!</h2>
 }

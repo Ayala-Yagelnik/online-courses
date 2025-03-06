@@ -1,12 +1,17 @@
 <div class="lesson-list-container">
-<h2>Lessons</h2>
-@for(lesson of lessons; track lesson.id)
-{
-  <div  class="lesson-card">
-    <mat-card>
-      <mat-card-title>{{ lesson.title }}</mat-card-title>
-      <mat-card-content>{{ lesson.content }}</mat-card-content>
-    </mat-card>
-  </div>
-}
+  <h2>Lessons</h2>
+  <button mat-raised-button color="primary" (click)="openAddLessonDialog()">Add Lesson</button>
+  @for(lesson of lessons; track lesson.id)
+  {
+    <div class="lesson-card">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ lesson.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ lesson.content }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
 </div>

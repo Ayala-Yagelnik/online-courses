@@ -4,13 +4,22 @@ import { Lesson } from '../../../models/lesson.model';
 import { LessonService } from '../../../services/lesson.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-lesson-manage',
   templateUrl: './lesson-manage.component.html',
   styleUrls: ['./lesson-manage.component.css'],
-  imports: [MatSelectModule, MatInputModule, MatFormFieldModule,ReactiveFormsModule ],
+  imports: [ 
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
   standalone: true
 })
 export class LessonManageComponent implements OnInit {
