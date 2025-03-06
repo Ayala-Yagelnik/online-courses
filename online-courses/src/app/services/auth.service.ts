@@ -12,7 +12,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   private teacherStatus = new BehaviorSubject<boolean>(this.checkIfTeacher());
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   private hasToken(): boolean {
     if (typeof localStorage === 'undefined') {
@@ -81,12 +81,24 @@ export class AuthService {
   getUser(): any {
     const token = this.getToken();
     if (!token) return null;
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.user;
+  
+    try {
+      console.log('auth, getUser, token:', token);
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('Token payload:', payload);
+      const user = payload.user || payload; // Assuming user might be directly in payload
+      console.log('User:', user);
+  
+      return user;
+    } catch (error) {
+      console.error('Error parsing token payload:', error);
+      return null;
+    }
   }
 
   private checkIfTeacher(): boolean {
     const user = this.getUser();
+    console.log('Is user a teacher?', user && user.role === 'teacher'); // Add this line
     return user && user.role === 'teacher';
   }
 }

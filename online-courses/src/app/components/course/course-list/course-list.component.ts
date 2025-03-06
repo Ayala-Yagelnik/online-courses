@@ -41,19 +41,15 @@ export class CourseListComponent implements OnInit {
   ngOnInit(): void {
     this.courseService.getCourses().subscribe(courses => {
       this.courses = courses;
-      const token = this.authService.getToken();
-      const userRequests = courses.map(course => this.userService.getUserById(course.teacherId,token));
-      forkJoin(userRequests).subscribe(users => {
-        this.courses = courses.map((course, index) => ({
-          ...course,
-          creatorName: users[index].name
-        }));
-      });
-    }, error => {
-      console.error('Error fetching courses:', error);
     });
   }
-  getInitials(name: string): string {
-    return name ? name.charAt(0).toUpperCase() : '';
+  
+  getInitials(id: number): string {
+    const token = this.authService.getToken();
+    let initials = '';
+    this.userService.getUserById(id, token).subscribe(user => {
+      initials = user.name ? user.name.charAt(0).toUpperCase() : '';
+    });
+    return initials;
   }
 }

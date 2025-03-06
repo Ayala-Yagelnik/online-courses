@@ -20,17 +20,14 @@ import { emptyUser, User } from '../../models/user.model';
   imports: [MatSelectModule, MatIconModule , MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule , HttpClientModule]
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit{
   profileForm: FormGroup;
-  user: User | null = null;
+  hidePassword = true; 
+  user: User = emptyUser;
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router
-  ) {
-    this.profileForm = this.fb.group({
+  constructor(private fb: FormBuilder, private router:Router, private authService: AuthService, private userService: UserService) {
+    console.log('initiate profile form');
+    this.profileForm =this.fb.group({
       name: ['', Validators.required],
       role: ['', Validators.required]
     });
@@ -40,14 +37,10 @@ export class ProfileComponent implements OnInit {
     const token = this.authService.getToken();
     this.loadUserProfile(token);
   }
-
+  
   async loadUserProfile(token: string): Promise<void> {
     try {
-      const user = this.authService.getUser();
-      if (!user) {
-        throw new Error('User not found');
-      }
-      this.user = await firstValueFrom(this.userService.getUserById(user.id, token));
+      this.user = await firstValueFrom(this.userService.getUserById(this.authService.getUser().userId, token));
       this.profileForm.setValue({
         name: this.user.name,
         role: this.user.role
@@ -60,12 +53,13 @@ export class ProfileComponent implements OnInit {
   async onSubmit(): Promise<void> {
     const token = this.authService.getToken();
 
-    if (this.profileForm.valid && this.user) {
+    if (this.profileForm.valid) {
       try {
-        await firstValueFrom(this.userService.updateUser(this.user.id, { ...this.user, ...this.profileForm.value }, token));
+        await firstValueFrom(this.userService.updateUser(this.user?.id, {...this.user, ...this.profileForm.value}, token));
         this.router.navigate(['/']);
       } catch (error) {
-        console.error('Error updating profile:', error);
+        // Handle profile update error
+        console.error(error);
       }
     }
   }

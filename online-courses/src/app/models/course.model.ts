@@ -4,6 +4,5 @@ export class Course {
         public title: string,
         public description: string,
         public teacherId: number,
-        public creatorName?: string
     ) {}
   }
