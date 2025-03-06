@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -18,7 +19,9 @@ export class UserService {
 
   getUserById(id: number, token: string): Observable<User> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<User>(`${this.apiUrl}/${id}`, { headers });
+    const user = this.http.get<User>(`${this.apiUrl}/${id}`, { headers });
+    console.log('user service, getUserById:', user);
+    return user;
   }
 
   updateUser(id: number, user: UserPostModel, token: string): Observable<any> {
