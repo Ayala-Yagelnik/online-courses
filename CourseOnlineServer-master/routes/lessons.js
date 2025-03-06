@@ -7,7 +7,7 @@ const Lesson = require('../models/Lesson');
   const lessonModel = Lesson(db);
 
   // Get all lessons in a course
-  router.get('/', async (req, res) => {
+  router.get('/', checkAuth, async (req, res) => {
     const { courseId } = req.params;
     lessonModel.findAllByCourseId(courseId, (err, lessons) => {
       if (err) {
