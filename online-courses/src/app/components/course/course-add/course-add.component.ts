@@ -6,7 +6,6 @@ import { AuthService } from '../../../services/auth.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './course-add.component.html',
   styleUrls: ['./course-add.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, HttpClientModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
 })
 
 export class CourseAddComponent {
@@ -23,10 +22,10 @@ export class CourseAddComponent {
 
   constructor(
     private fb: FormBuilder,
-     private router: Router,
-     private courseService: CourseService,
-     private lessonService: LessonService,
-     private authService: AuthService) {
+    private router: Router,
+    private courseService: CourseService,
+    private lessonService: LessonService,
+    private authService: AuthService) {
     this.courseForm = this.fb.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],
