@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { LessonAddComponent } from '../lesson-add/lesson-add.component';
+import { AuthService } from '../../../services/auth.service';
+import { CourseService } from '../../../services/course.service';
 
 @Component({
   selector: 'app-lesson-list',
@@ -28,17 +30,23 @@ import { LessonAddComponent } from '../lesson-add/lesson-add.component';
 export class LessonListComponent implements OnInit {
   @Input() courseId: number=0;
   lessons: Lesson[] = [];
+  isCourseCreator: boolean = false;
 
-  constructor(private lessonService: LessonService, private dialog: MatDialog) { }
+  constructor(
+    private lessonService: LessonService,
+    private courseService: CourseService,
+    private authService: AuthService,
+     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log('courseId:', this.courseId);
-    if (this.courseId) {
+    const currentUser = this.authService.getUser();
+    this.lessonService.getLessons(this.courseId).subscribe(lessons => {
+      this.lessons = lessons;
+    });
 
-      this.lessonService.getLessons(this.courseId).subscribe(lessons => {
-        this.lessons = lessons;
-      });
-    }
+    this.courseService.getCourseById(this.courseId).subscribe(course => {
+      this.isCourseCreator = course.teacherId === currentUser.id;
+    });
   }
   openAddLessonDialog(): void {
     const dialogRef = this.dialog.open(LessonAddComponent, {

@@ -1,6 +1,9 @@
 <div class="lesson-list-container">
   <h2>Lessons</h2>
-  <button mat-raised-button color="primary" (click)="openAddLessonDialog()">Add Lesson</button>
+  @if(isCourseCreator)
+  {
+    <button mat-raised-button color="primary" (click)="openAddLessonDialog()">Add Lesson</button>
+  }
   @for(lesson of lessons; track lesson.id)
   {
     <div class="lesson-card">

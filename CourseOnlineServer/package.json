@@ -4,7 +4,10 @@
   "description": "Online courses management system",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   },
   "author": "",
   "license": "ISC",

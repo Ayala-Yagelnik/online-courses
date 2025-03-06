@@ -12,7 +12,7 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
   private teacherStatus = new BehaviorSubject<boolean>(this.checkIfTeacher());
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private hasToken(): boolean {
     if (typeof localStorage === 'undefined') {
