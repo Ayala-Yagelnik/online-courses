@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { StudentCoursesComponent } from './components/course/student-courses/student-courses.component';
+import { CourseEditComponent } from './components/course/course-edit/course-edit.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,5 +24,6 @@ export const routes: Routes = [
   { path: 'manage-users', component: UserManageComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-course', component: CourseAddComponent, canActivate: [AuthGuard] },
-  { path: 'my-courses', component: StudentCoursesComponent, canActivate: [AuthGuard] }
+  { path: 'my-courses', component: StudentCoursesComponent, canActivate: [AuthGuard] },
+  {path:'edit-course/:id',component:CourseEditComponent,canActivate:[AuthGuard]}
 ];

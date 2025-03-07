@@ -12,7 +12,7 @@ import { CourseDetailComponent } from '../course-detail/course-detail.component'
   templateUrl: './manage-my-courses.component.html',
   styleUrls: ['./manage-my-courses.component.css'],
   standalone: true,
-  imports: [MatCardModule,CourseDetailComponent, MatButtonModule, RouterModule]
+  imports: [MatCardModule, CourseDetailComponent, MatButtonModule, RouterModule]
 })
 export class ManageMyCoursesComponent implements OnInit {
   courses: Course[] = [];
@@ -20,19 +20,15 @@ export class ManageMyCoursesComponent implements OnInit {
   constructor(private courseService: CourseService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    const user = this.authService.getUser();
-    if (user && user.id) {
-      this.courseService.getCourses().subscribe({     
-        next: (courses) => {
-          console.log(courses);
-          this.courses = courses.filter(course => course.teacherId === user.id);
-          console.log(this.courses);
-        },
-        error: (error) => {
-          console.error('Error fetching courses:', error);
-        }
+    const token = this.authService.getToken();
+    const userId = this.authService.getUser().userId;
+   
+      this.courseService.getCourses().subscribe(courses => {
+        this.courses = courses.filter(course => course.teacherId === userId);
+        console.log(this.courses);
+      }, error => {
+        console.error('Error fetching courses:', error);
       });
-    }
   }
 
   deleteCourse(courseId: number): void {
