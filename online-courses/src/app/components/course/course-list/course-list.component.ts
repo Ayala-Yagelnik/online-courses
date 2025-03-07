@@ -9,8 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -23,8 +23,7 @@ import { AuthService } from '../../../services/auth.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    ReactiveFormsModule
   ],
   standalone: true,
   styleUrls: ['./course-list.component.css']
@@ -43,13 +42,16 @@ export class CourseListComponent implements OnInit {
       this.courses = courses;
     });
   }
-  
+
   getInitials(id: number): string {
     const token = this.authService.getToken();
     let initials = '';
-    this.userService.getUserById(id, token).subscribe(user => {
-      initials = user.name ? user.name.charAt(0).toUpperCase() : '';
-    });
+    this.userService.getUserById(id, token).pipe(
+      concatMap(user => {
+        initials = user.name ? user.name.charAt(0).toUpperCase() : '';
+        return of(initials); 
+      })
+    ).subscribe();
     return initials;
   }
 }

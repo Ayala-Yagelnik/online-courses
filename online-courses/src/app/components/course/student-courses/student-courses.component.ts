@@ -11,7 +11,13 @@ import { LessonListComponent } from "../../lesson/lesson-list/lesson-list.compon
 @Component({
   selector: 'app-student-courses',
   standalone: true,
-  imports: [RouterModule, CommonModule, MatCardModule, MatButtonModule, LessonListComponent],
+  imports: [
+    RouterModule,
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    LessonListComponent
+  ],
   templateUrl: './student-courses.component.html',
   styleUrls: ['./student-courses.component.css']
 })

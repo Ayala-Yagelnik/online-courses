@@ -1,7 +1,8 @@
 mat-toolbar {
-    justify-content: center;
-    position: fixed;
-    bottom: 0;
-    background-color: black;
-    color:white;
-  }
+  justify-content: center;
+  position: fixed;
+  z-index: 1000;
+  bottom: 0;
+  background-color: black;
+  color: white;
+}

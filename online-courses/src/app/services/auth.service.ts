@@ -83,22 +83,16 @@ export class AuthService {
     if (!token) return null;
   
     try {
-      console.log('auth, getUser, token:', token);
       const payload = JSON.parse(atob(token.split('.')[1]));
-      console.log('Token payload:', payload);
-      const user = payload.user || payload; // Assuming user might be directly in payload
-      console.log('User:', user);
-  
+      const user = payload.user || payload; 
       return user;
     } catch (error) {
-      console.error('Error parsing token payload:', error);
       return null;
     }
   }
 
   private checkIfTeacher(): boolean {
     const user = this.getUser();
-    console.log('Is user a teacher?', user && user.role === 'teacher'); // Add this line
     return user && user.role === 'teacher';
   }
 }

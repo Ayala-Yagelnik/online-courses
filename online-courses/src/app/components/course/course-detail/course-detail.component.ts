@@ -35,10 +35,18 @@ export class CourseDetailComponent implements OnInit {
     }
   }
 
-  enroll(): void {
-    if (this.course) {
-      // Implement enrollment logic here
-      console.log(`Enrolled in course: ${this.course.title}`);
-    }
+
+
+  enroll(courseId: number): void {
+    const token = this.authService.getToken();
+    const userId = this.authService.getUser().userId;
+
+    this.courseService.enrollInCourse(courseId, userId, token).subscribe(() => {
+      console.log('Enrolled in course successfully');
+      // Refresh the course list or update the UI as needed
+    }, error => {
+      console.error('Error enrolling in course:', error);
+    });
   }
+
 }

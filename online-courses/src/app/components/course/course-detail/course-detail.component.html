@@ -4,7 +4,7 @@
     <div class="course-header">
       <h2>{{ course.title }}</h2>
       <p>{{ course.description }}</p>
-      <button mat-raised-button class="enroll-button" (click)="enroll()">Enroll in this Course</button>
+      <button mat-raised-button class="enroll-button" (click)="enroll(course.id)">Enroll in this Course</button>
     </div>
     <div class="course-content">
       <app-lesson-list [courseId]="course.id"></app-lesson-list>
