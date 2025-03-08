@@ -8,13 +8,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { LessonAddComponent } from "../../lesson/lesson-add/lesson-add.component";
+import { MatDialogModule, MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-course-add',
   templateUrl: './course-add.component.html',
   styleUrls: ['./course-add.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, LessonAddComponent]
+  imports: [
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    LessonAddComponent
+  ],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {} }
+  ]
 })
 
 export class CourseAddComponent {
@@ -26,7 +38,8 @@ export class CourseAddComponent {
     private router: Router,
     private courseService: CourseService,
     private lessonService: LessonService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private dialogRef: MatDialogRef<CourseAddComponent>) {
     this.courseForm = this.fb.group({
       title: ['', [Validators.required]],
       description: ['', [Validators.required]],

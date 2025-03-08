@@ -25,5 +25,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-course', component: CourseAddComponent, canActivate: [AuthGuard] },
   { path: 'my-courses', component: StudentCoursesComponent, canActivate: [AuthGuard] },
-  {path:'edit-course/:id',component:CourseEditComponent,canActivate:[AuthGuard]}
+  {path:'edit-course/:id',component:CourseEditComponent,canActivate:[AuthGuard]},
+  { path: '**', redirectTo: '/login' }
+
 ];

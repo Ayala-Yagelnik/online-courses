@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -34,9 +35,9 @@ export class CourseEditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private courseService: CourseService,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
@@ -55,9 +56,31 @@ export class CourseEditComponent implements OnInit {
   onSubmit(): void {
     if (this.courseForm.valid) {
       const token = this.authService.getToken();
-      this.courseService.updateCourse(this.courseId, this.courseForm.value, token).subscribe({
+      const updates = {
+        ...this.courseForm.value,
+        teacherId: this.authService.getUser().userId // הוספת teacherId מהמשתמש המחובר
+      };
+      console.log(updates)
+      this.courseService.updateCourse(this.courseId, updates, token).subscribe({
         next: () => this.router.navigate(['/manage-courses']),
-        error: (err) => console.error('Error updating course:', err)
+        error: (err) => {
+          if (err.status !== 404) {
+            console.error('Error updating course:', err);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
+          }
+          else {
+            Swal.fire({
+              title: "the changes saved!",
+              icon: "success",
+              draggable: false
+            });
+          }
+          this.router.navigate(['/manage-courses'])
+        }
       });
     }
   }

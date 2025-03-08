@@ -5,7 +5,7 @@
         <mat-card class="course-card">
           <mat-card-header>
             <div mat-card-avatar class="course-card-avatar">
-                {{ getInitials(course.teacherId) }}
+                {{ getInitials(course.teacherId) | async}}
             </div>
             <mat-card-title>{{ course.title }}</mat-card-title>
           </mat-card-header>
@@ -13,7 +13,7 @@
             <p>{{ course.description }}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-raised-button color="primary" [routerLink]="['/courses', course.id]">View Details</button>
+            <button mat-raised-button color="green" class="custom-button" [routerLink]="['/courses', course.id]">View Details</button>
           </mat-card-actions>
         </mat-card>
       </div>
