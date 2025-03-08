@@ -7,13 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { LessonAddComponent } from "../../lesson/lesson-add/lesson-add.component";
 
 @Component({
   selector: 'app-course-add',
   templateUrl: './course-add.component.html',
   styleUrls: ['./course-add.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule]
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule, LessonAddComponent]
 })
 
 export class CourseAddComponent {
