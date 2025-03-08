@@ -37,7 +37,6 @@
     <button mat-raised-button color="primary" type="submit">Add Course</button>
   </form>
 </div> -->
-
 <div class="course-add-container">
   <h2>Add New Course</h2>
   <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
@@ -57,7 +56,7 @@
     </mat-form-field>
 
     <div formArrayName="lessons">
-      @for(lesson of lessonForms.controls; track $index; let i = $index){
+      @for(lesson of lessonForms.controls; track $index; let i = $index) {
         <div [formGroupName]="i" class="lesson-form">
           <div class="lesson-header">
             <mat-form-field appearance="fill" class="lesson-title">

@@ -1,22 +1,48 @@
 <div class="course-edit-container">
-    <h2>Edit Course</h2>
-    <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title">
-        @if(courseForm.get('title')?.hasError('required'))
-        {
-          <mat-error>Title is required</mat-error>
-        }
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-        @if(courseForm.get('description')?.hasError('required'))
-        {
-          <mat-error>Description is required</mat-error>
-        }
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit">Save</button>
-    </form>
-  </div>
+  <h2>Edit Course</h2>
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+      @if(courseForm.get('title')?.hasError('required')) {
+        <mat-error>Title is required</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      @if(courseForm.get('description')?.hasError('required')) {
+        <mat-error>Description is required</mat-error>
+      }
+    </mat-form-field>
+
+    <div formArrayName="lessons">
+      @for(lesson of lessonForms.controls;track $index) {
+        <div [formGroupName]="$index" class="lesson-form">
+          <div class="lesson-header">
+            <mat-form-field appearance="fill" class="lesson-title">
+              <mat-label>Lesson Title</mat-label>
+              <input matInput formControlName="title">
+              @if(lessonForms.at($index).get('title')?.hasError('required')) {
+                <mat-error>Lesson title is required</mat-error>
+              }
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="deleteLesson($index)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-form-field appearance="fill" class="lesson-content">
+            <mat-label>Lesson Content</mat-label>
+            <textarea matInput formControlName="content"></textarea>
+            @if(lessonForms.at($index).get('content')?.hasError('required')) {
+              <mat-error>Lesson content is required</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      }
+    </div>
+
+    <button mat-raised-button color="primary" type="button" (click)="addLesson()">Add Lesson</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </form>
+</div>

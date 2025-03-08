@@ -54,7 +54,7 @@ export class CourseListComponent implements OnInit {
   loadUserInitials(id: number): void {
     const token = this.authService.getToken();
     this.userService.getUserById(id, token).subscribe(user => {
-      const initials = user.name ? user.name.charAt(0).toUpperCase() : '';
+      const initials = user.name ? user.name : '';
       this.userInitials[id].next(initials);
     });
   }

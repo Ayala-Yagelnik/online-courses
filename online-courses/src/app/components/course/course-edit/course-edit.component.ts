@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CourseService } from '../../../services/course.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import Swal from 'sweetalert2';
+import { LessonService } from '../../../services/lesson.service';
 
 
 @Component({
@@ -30,27 +31,57 @@ import Swal from 'sweetalert2';
 })
 export class CourseEditComponent implements OnInit {
   courseForm: FormGroup;
+  lessons!: FormArray;
   courseId!: number;
+
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private courseService: CourseService,
+    private lessonService: LessonService,
     private authService: AuthService
   ) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      lessons: this.fb.array([])
     });
+    this.lessons = this.courseForm.get('lessons') as FormArray;
   }
 
 
   ngOnInit(): void {
-    this.courseId = +this.route.snapshot.paramMap.get('id')!;
     this.courseService.getCourseById(this.courseId).subscribe(course => {
       this.courseForm.patchValue(course);
+      this.lessonService.getLessons(this.courseId).subscribe(lesson => {
+        this.addExistingLesson(lesson);
+      });
     });
+  }
+
+  get lessonForms() {
+    return this.courseForm.get('lessons') as FormArray;
+  }
+
+  addLesson() {
+    const lesson = this.fb.group({
+      title: ['', Validators.required],
+      content: ['', Validators.required]
+    });
+    this.lessonForms.push(lesson);
+  }
+
+  addExistingLesson(lesson: any) {
+    const lessonForm = this.fb.group({
+      title: [lesson.title, Validators.required],
+      content: [lesson.content, Validators.required]
+    });
+    this.lessonForms.push(lessonForm);
+  }
+
+  deleteLesson(i: number) {
+    this.lessonForms.removeAt(i);
   }
 
   onSubmit(): void {
@@ -58,7 +89,7 @@ export class CourseEditComponent implements OnInit {
       const token = this.authService.getToken();
       const updates = {
         ...this.courseForm.value,
-        teacherId: this.authService.getUser().userId // הוספת teacherId מהמשתמש המחובר
+        teacherId: this.authService.getUser().userId 
       };
       console.log(updates)
       this.courseService.updateCourse(this.courseId, updates, token).subscribe({

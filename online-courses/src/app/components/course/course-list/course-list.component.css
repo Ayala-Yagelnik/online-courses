@@ -1,4 +1,4 @@
-.course-list-container {
+/* .course-list-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -59,14 +59,14 @@ mat-card-actions {
   margin-top: auto;
 }
 
-/* .custom-button {
+.custom-button {
   background-color: #e6ffe6; 
   color: rgb(30, 222, 0); 
 }
 
 .custom-button:hover {
   background-color: #ccffcd; 
-} */
+}
 .mat-green {
   color: forestgreen;
   background-color: #e6ffe6;
@@ -74,6 +74,81 @@ mat-card-actions {
 .mat-green:hover{
   background-color: #ccffcd;
 }
+button {
+  margin-top: 16px;
+} */
+
+.course-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.course-card-wrapper {
+  flex: 0 0 30%;
+  margin: 24px;
+}
+
+.course-card {
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 300px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.course-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.course-card-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00ff7b;
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+mat-card-content {
+  font-size: 16px;
+  color: #666;
+  flex-grow: 1;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.mat-green {
+  color: #ffffff;
+  background-color: #54ff57;
+  transition: background-color 0.3s ease;
+}
+
+.mat-green:hover {
+  background-color: #00c82b;
+}
+
 button {
   margin-top: 16px;
 }
