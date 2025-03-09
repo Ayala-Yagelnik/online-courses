@@ -9,7 +9,8 @@
 
 h2 {
   text-align: center;
-  color: #333;
+  color: #7363c6;
+  margin-bottom: 20px;
 }
 
 .full-width {
@@ -42,10 +43,34 @@ h2 {
 button[type="button"] {
   margin-top: 10px;
   margin-right: 10px;
+  background-color: #ff8e88;
+  color: #fff;
+}
+
+button[type="button"]:hover {
+  background-color: #e07b7b;
 }
 
 button[type="submit"] {
   display: block;
   width: 100%;
   margin-top: 20px;
+  background-color: #7363c6;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background-color: #5a4db2;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-card {
+  background-color: #ffc444;
+  color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
 }

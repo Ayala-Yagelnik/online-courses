@@ -112,6 +112,7 @@ export class CourseEditComponent implements OnInit {
           const lessons = this.courseForm.value.lessons;
           console.log('lessons', lessons);
           lessons.forEach((lesson: Lesson) => {
+            console.log('id', lesson.id);
             if (lesson.id) {
               console.log('updating lesson', lesson.id);
               this.lessonService.updateLesson(this.courseId, lesson.id, lesson, token).subscribe({

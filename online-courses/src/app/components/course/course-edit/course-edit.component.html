@@ -17,6 +17,7 @@
     </mat-form-field>
 
     <div formArrayName="lessons">
+      <h6>lessons</h6>
       @for(lesson of lessonForms.controls; track $index) {
         <div [formGroupName]="$index" class="lesson-form">
           <div class="lesson-header">
