@@ -18,8 +18,9 @@
           <button mat-raised-button (click)="enroll(course.id)">Enroll Now</button>
         </div>
       </div>
-     <!-- how can i check if the current user id enrolled to this course?-->
+     @if(isEnrolled){
       <app-lesson-list [courseId]="course.id"></app-lesson-list>
+     }
     </div>
   </div>
 } @else {

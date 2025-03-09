@@ -18,6 +18,7 @@ export class CourseDetailComponent implements OnInit {
 
   course: Course | undefined;
   isLoggedIn: boolean = false;
+  isEnrolled: boolean = false;
   teacherName: string = '';
 
   constructor(
@@ -35,6 +36,7 @@ export class CourseDetailComponent implements OnInit {
       this.courseService.getCourseById(+id).subscribe(course => {
         this.course = course;
         this.getTeacherName(course.teacherId);
+        this.checkEnrollment(+id);
       }, error => {
         console.error('Error fetching course details:', error);
       });
@@ -48,6 +50,19 @@ export class CourseDetailComponent implements OnInit {
       console.error('Error fetching teacher name:', error)
     });
   }
+
+  checkEnrollment(courseId: number): void {
+    const userId = this.authService.getUser().userId;
+    this.courseService.getCoursesByStudentId(userId, this.authService.getToken()).subscribe(courses => {
+      courses.forEach(course => {
+        if(course.id === courseId) {
+          this.isEnrolled = true;
+        }
+      });
+    });
+  }
+     
+  
 
   enroll(courseId: number): void {
     const token = this.authService.getToken();

@@ -41,7 +41,6 @@
       <mat-select formControlName="role" required>
         <mat-option value="student">Student</mat-option>
         <mat-option value="teacher">Teacher</mat-option>
-        <mat-option value="admin">Admin</mat-option>
       </mat-select>
       @if(registerForm.get('role')?.hasError('required'))
       {
