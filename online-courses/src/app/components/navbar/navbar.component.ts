@@ -7,21 +7,31 @@ import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthDialogComponent } from '../authentication/auth-dialog/auth-dialog.component';
 import { Subscription } from 'rxjs';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterModule]
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    RouterModule
+    ]
 })
 export class NavbarComponent implements OnInit, OnDestroy { 
   isLoggedIn: boolean = false;
   isTeacher: boolean = false;
+
   private authSubscription: Subscription = new Subscription();
   private teacherSubscription: Subscription = new Subscription();
 
-  constructor(private authService: AuthService, private dialog: MatDialog) {}
+  constructor(private authService: AuthService, private dialog: MatDialog) {
+
+  }
 
   ngOnInit(): void {
     this.authSubscription = this.authService.isLoggedIn().subscribe(loggedIn => {
@@ -43,8 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout(); 
-    
+    this.authService.logout();  
   }
   
   openAuthDialog() {

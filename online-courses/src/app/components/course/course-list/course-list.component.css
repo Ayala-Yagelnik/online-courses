@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ff008c;
+  background-color: #ff8e88;
   color: #ffffff;
   border-radius: 50%;
   width: 40px;
@@ -59,20 +59,13 @@ mat-card-actions {
   margin-top: auto;
 }
 
-/* .custom-button {
-  background-color: #e6ffe6; 
-  color: rgb(30, 222, 0); 
-}
-
-.custom-button:hover {
-  background-color: #ccffcd; 
-} */
 .mat-green {
-  color: forestgreen;
-  background-color: #e6ffe6;
+  color: #7363c6;
+  background-color: #d1c9f8;
 }
 .mat-green:hover{
-  background-color: #ccffcd;
+  background-color: #b7aaf8;
+  color:white;
 }
 button {
   margin-top: 16px;

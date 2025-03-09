@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
-import { LessonAddComponent } from '../lesson-add/lesson-add.component';
 import { AuthService } from '../../../services/auth.service';
 import { CourseService } from '../../../services/course.service';
 
@@ -49,17 +48,7 @@ export class LessonListComponent implements OnInit {
     });
   }
   openAddLessonDialog(): void {
-    const dialogRef = this.dialog.open(LessonAddComponent, {
-      width: '400px',
-      data: { courseId: this.courseId }
-    });
+    
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'added') {
-        this.lessonService.getLessons(this.courseId).subscribe(lessons => {
-          this.lessons = lessons;
-        });
-      }
-    });
   }
 }

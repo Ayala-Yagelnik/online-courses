@@ -4,6 +4,7 @@ import { Course } from '../../../models/course.model';
 import { CourseService } from '../../../services/course.service';
 import { AuthService } from '../../../services/auth.service';
 import { LessonListComponent } from "../../lesson/lesson-list/lesson-list.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-course-detail',
@@ -42,9 +43,17 @@ export class CourseDetailComponent implements OnInit {
     const userId = this.authService.getUser().userId;
 
     this.courseService.enrollInCourse(courseId, userId, token).subscribe(() => {
-      console.log('Enrolled in course successfully');
-      // Refresh the course list or update the UI as needed
+         Swal.fire({
+                  title: "Enrolled in course successfully",
+                  icon: "success",
+                  draggable: false
+                });
     }, error => {
+      Swal.fire({
+        title: "Error enrolling in course",
+        icon: "error",
+        draggable: false
+      });
       console.error('Error enrolling in course:', error);
     });
   }

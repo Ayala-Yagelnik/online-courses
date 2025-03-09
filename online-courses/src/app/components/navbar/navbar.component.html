@@ -1,5 +1,4 @@
 <mat-toolbar color="primary" class="navbar">
-
   <mat-icon class="logo-icon">school</mat-icon>
   <span class="logo-text">Online Courses</span>
   <span class="spacer"></span>
@@ -9,38 +8,75 @@
     Home
   </button>
 
-  @if(isLoggedIn){
-  <button mat-button routerLink="/courses" class="nav-button">
-    <mat-icon>book</mat-icon>
-    Courses
-  </button>
+  @if (isLoggedIn) {
+    <button mat-button routerLink="/courses" class="nav-button">
+      <mat-icon>book</mat-icon>
+      Courses
+    </button>
 
-  <button mat-button routerLink="/my-courses" class="nav-button">
-    <mat-icon>library_books</mat-icon>
-    My Courses
-  </button>
+    <button mat-button routerLink="/my-courses" class="nav-button">
+      <mat-icon>library_books</mat-icon>
+      My Courses
+    </button>
 
-  @if(isTeacher){
-  <button mat-button routerLink="/manage-courses" class="nav-button">
-    <mat-icon>school</mat-icon>
-    Manage Courses
-  </button>
+    @if (isTeacher) {
+      <button mat-button routerLink="/manage-courses" class="nav-button">
+        <mat-icon>school</mat-icon>
+        Manage Courses
+      </button>
+    }
+
+    <button mat-button routerLink="/profile" class="nav-button">
+      <mat-icon>account_circle</mat-icon>
+      Profile
+    </button>
+
+    <button mat-button class="login-button" [routerLink]="['/']" (click)="logout()">
+      Logout
+    </button>
+  } @else {
+    <button mat-button class="login-button" (click)="openAuthDialog()">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
   }
 
-  <button mat-button routerLink="/profile" class="nav-button">
-    <mat-icon>account_circle</mat-icon>
-    Profile
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button">
+    <mat-icon>more_vert</mat-icon>
   </button>
 
-  <button mat-button class="login-button" [routerLink]="['/']" (click)="logout()">Logout</button>
-
-  }
-  @else{
-
-  <button mat-button class="login-button" (click)="openAuthDialog()">
-    <mat-icon>login</mat-icon>
-    Login
-  </button>
-
-  }
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="/">
+      <mat-icon>home</mat-icon>
+      Home
+    </button>
+    @if (isLoggedIn) {
+      <button mat-menu-item routerLink="/courses">
+        <mat-icon>book</mat-icon>
+        Courses
+      </button>
+      <button mat-menu-item routerLink="/my-courses">
+        <mat-icon>library_books</mat-icon>
+        My Courses
+      </button>
+      @if (isTeacher) {
+        <button mat-menu-item routerLink="/manage-courses">
+          <mat-icon>school</mat-icon>
+          Manage Courses
+        </button>
+      }
+      <button mat-menu-item routerLink="/profile">
+        <mat-icon>account_circle</mat-icon>
+        Profile
+      </button>
+      <button mat-menu-item [routerLink]="['/']" (click)="logout()">
+        Logout
+      </button>
+    } @else {
+      <button mat-menu-item (click)="openAuthDialog()">
+        <mat-icon>login</mat-icon>
+        Login
+      </button>
+    }
+  </mat-menu>
 </mat-toolbar>

@@ -6,7 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { CourseService } from '../../../services/course.service';
 import { Course } from '../../../models/course.model';
 import { RouterModule } from '@angular/router';
-import { LessonListComponent } from "../../lesson/lesson-list/lesson-list.component";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-courses',
@@ -15,8 +15,7 @@ import { LessonListComponent } from "../../lesson/lesson-list/lesson-list.compon
     RouterModule,
     CommonModule,
     MatCardModule,
-    MatButtonModule,
-    LessonListComponent
+    MatButtonModule
   ],
   templateUrl: './student-courses.component.html',
   styleUrls: ['./student-courses.component.css']
@@ -42,14 +41,26 @@ export class StudentCoursesComponent implements OnInit {
     const userId = this.authService.getUser().userId;
 
     this.courseService.unenrollFromCourse(courseId, userId, token).subscribe(() => {
-      console.log('Unenrolled from course successfully');
+      Swal.fire({
+        title: "Unenrolled from course successfully",
+        icon: "success",
+        draggable: false
+      });
       this.courseService.getCoursesByStudentId(userId, token).subscribe(courses => {
         this.courses = courses;
       }, error => {
-        console.error('Error fetching student courses:', error);
+        Swal.fire({
+          title: "Error fetching student courses",
+          icon: "error",
+          draggable: false
+        });
       });
-    }, error => {
-      console.error('Error unenrolling from course:', error);
+    }, error => {  
+      Swal.fire({
+        title: 'Error unenrolling from course:',
+        icon: "error",
+        draggable: false
+      });
     });
   }
 }

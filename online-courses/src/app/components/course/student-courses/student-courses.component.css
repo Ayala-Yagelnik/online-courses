@@ -1,0 +1,70 @@
+.courses-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #7363c6;
+    margin-bottom: 20px;
+  }
+  
+  .course-card {
+    margin-bottom: 20px;
+  }
+  
+  mat-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-card-header {
+    background-color: #aa9cf3;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    justify-content: center ;
+  }
+  
+  mat-card-title {
+    font-size: 1.5em;
+  }
+  
+  mat-card-content {
+    padding: 20px;
+    color: #333;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-radius: 0 0 8px 8px;
+  }
+  
+  button[mat-button] {
+    margin-left: 10px;
+  }
+  
+  button[mat-button][color="warn"] {
+    background-color: #ff8e88;
+    color: #fff;
+  }
+  
+  button[mat-button][color="warn"]:hover {
+    background-color: #e07b7b;
+  }
+  
+  button[mat-button][color="primary"] {
+    background-color: #ffc444;
+    color: #fff;
+  }
+  
+  button[mat-button][color="primary"]:hover {
+    background-color: #e0a933;
+  }

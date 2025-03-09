@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { emptyUser, User } from '../../models/user.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -46,7 +47,11 @@ export class ProfileComponent implements OnInit{
         role: this.user.role
       });
     } catch (error) {
-      console.error('Error fetching user:', error);
+      Swal.fire({
+        title: "Error fetching user",
+        icon: "error",
+        draggable: false
+      });
     }
   }
 
@@ -56,10 +61,18 @@ export class ProfileComponent implements OnInit{
     if (this.profileForm.valid) {
       try {
         await firstValueFrom(this.userService.updateUser(this.user?.id, {...this.user, ...this.profileForm.value}, token));
+        Swal.fire({
+          title: "Profile updated successfully",
+          icon: "success",
+          draggable: false
+        });
         this.router.navigate(['/']);
       } catch (error) {
-        // Handle profile update error
-        console.error(error);
+          Swal.fire({
+                  title: "The changes not saved",
+                  icon: "error",
+                  draggable: false
+                });
       }
     }
   }

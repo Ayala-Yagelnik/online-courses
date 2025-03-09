@@ -1,5 +1,4 @@
-@if(course)
-{
+@if(course) {
   <div class="course-detail-container">
     <div class="course-header">
       <h2>{{ course.title }}</h2>
@@ -10,8 +9,6 @@
       <app-lesson-list [courseId]="course.id"></app-lesson-list>
     </div>
   </div>
-}
-@else
-{
+} @else {
   <h2>Course not found!</h2>
 }
