@@ -31,6 +31,7 @@ export class LessonService {
     return this.http.put(`${this.baseUrl}/${courseId}/lessons/${id}`, lesson, { headers });
   }
 
+
   deleteLesson(courseId: number, id: number, token: string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.delete(`${this.baseUrl}/${courseId}/lessons/${id}`, { headers });

@@ -11,6 +11,7 @@ import { AuthService } from '../../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import Swal from 'sweetalert2';
 import { LessonService } from '../../../services/lesson.service';
+import { Lesson } from '../../../models/lesson.model';
 
 @Component({
   selector: 'app-course-edit',
@@ -32,6 +33,7 @@ export class CourseEditComponent implements OnInit {
   courseForm: FormGroup;
   lessons!: FormArray;
   courseId!: number;
+  deletedLessons: number[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -57,9 +59,13 @@ export class CourseEditComponent implements OnInit {
         description: course.description
       });
       this.lessonService.getLessons(this.courseId).subscribe(lessons => {
-        lessons.forEach((lesson: any) => {
-          this.addExistingLesson(lesson);
-        });
+        if (Array.isArray(lessons)) {
+          lessons.forEach((lesson: any) => {
+            this.addExistingLesson(lesson);
+          });
+        } else {
+          console.error('Lessons is not an array:', lessons);
+        }
       });
     });
   }
@@ -85,16 +91,13 @@ export class CourseEditComponent implements OnInit {
     this.lessonForms.push(lessonForm);
   }
 
-  deleteLesson(i: number) {
+  deleteLesson(i: number, event: Event) {
+    event.preventDefault();
     const lessonId = this.lessonForms.at(i).get('id')?.value;
     if (lessonId) {
-      const token = this.authService.getToken();
-      this.lessonService.deleteLesson(this.courseId, lessonId, token).subscribe(() => {
-        this.lessonForms.removeAt(i);
-      });
-    } else {
-      this.lessonForms.removeAt(i);
+      this.deletedLessons.push(lessonId);
     }
+    this.lessonForms.removeAt(i);
   }
 
   onSubmit(): void {
@@ -107,12 +110,30 @@ export class CourseEditComponent implements OnInit {
       this.courseService.updateCourse(this.courseId, updates, token).subscribe({
         next: () => {
           const lessons = this.courseForm.value.lessons;
-          lessons.forEach((lesson: any) => {
+          console.log('lessons', lessons);
+          lessons.forEach((lesson: Lesson) => {
             if (lesson.id) {
-              this.lessonService.updateLesson(this.courseId, lesson.id, lesson, token).subscribe();
+              console.log('updating lesson', lesson.id);
+              this.lessonService.updateLesson(this.courseId, lesson.id, lesson, token).subscribe({
+                error: (err) => {
+                  console.error(`Error updating lesson ${lesson.id}:`, err);
+                }
+              });
             } else {
-              this.lessonService.createLesson(this.courseId, lesson, token).subscribe();
+              console.log('creating lesson');
+              this.lessonService.createLesson(this.courseId, lesson, token).subscribe({
+                error: (err) => {
+                  console.error(`Error creating lesson:`, err);
+                }
+              });
             }
+          });
+          this.deletedLessons.forEach(lessonId => {
+            this.lessonService.deleteLesson(this.courseId, lessonId, token).subscribe({
+              error: (err) => {
+                console.error(`Error deleting lesson ${lessonId}:`, err);
+              }
+            });
           });
           Swal.fire({
             title: "The changes saved!",

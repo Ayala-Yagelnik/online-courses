@@ -1,7 +1,7 @@
 <div class="course-edit-container">
   <h2>Edit Course</h2>
   <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
       <mat-label>Title</mat-label>
       <input matInput formControlName="title">
       @if(courseForm.get('title')?.hasError('required')) {
@@ -27,7 +27,7 @@
                 <mat-error>Lesson title is required</mat-error>
               }
             </mat-form-field>
-            <button mat-icon-button color="warn" (click)="deleteLesson($index)">
+            <button mat-icon-button color="warn" (click)="deleteLesson($index, $event)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
