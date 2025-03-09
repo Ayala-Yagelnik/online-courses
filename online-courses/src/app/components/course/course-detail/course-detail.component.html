@@ -3,12 +3,27 @@
     <div class="course-header">
       <h2>{{ course.title }}</h2>
       <p>{{ course.description }}</p>
-      <button mat-raised-button class="enroll-button" (click)="enroll(course.id)">Enroll in this Course</button>
     </div>
     <div class="course-content">
+      <div class="course-card">
+        <div class="course-card-header">
+          <h3>Course Details</h3>
+        </div>
+        <div class="course-card-content">
+          <p><strong>Teacher:</strong> {{teacherName }}</p>
+          <p><strong>Duration:</strong> 3 hours</p>
+          <p><strong>Level:</strong> 4 </p>
+        </div>
+        <div class="course-card-actions">
+          <button mat-raised-button (click)="enroll(course.id)">Enroll Now</button>
+        </div>
+      </div>
+     <!-- how can i check if the current user id enrolled to this course?-->
       <app-lesson-list [courseId]="course.id"></app-lesson-list>
     </div>
   </div>
 } @else {
-  <h2>Course not found!</h2>
+  <div class="course-not-found">
+    <h2>Course not found!</h2>
+  </div>
 }

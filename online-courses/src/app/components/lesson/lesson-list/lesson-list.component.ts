@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Lesson } from '../../../models/lesson.model';
 import { LessonService } from '../../../services/lesson.service';
@@ -15,7 +15,7 @@ import { CourseService } from '../../../services/course.service';
 @Component({
   selector: 'app-lesson-list',
   templateUrl: './lesson-list.component.html',
-  imports: [    
+  imports: [
     MatCardModule,
     RouterModule,
     MatButtonModule,
@@ -23,11 +23,11 @@ import { CourseService } from '../../../services/course.service';
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule],
-    standalone  : true,
+  standalone: true,
   styleUrls: ['./lesson-list.component.css']
 })
 export class LessonListComponent implements OnInit {
-  @Input() courseId: number=0;
+  @Input() courseId: number = 0;
   lessons: Lesson[] = [];
   isCourseCreator: boolean = false;
 
@@ -35,7 +35,7 @@ export class LessonListComponent implements OnInit {
     private lessonService: LessonService,
     private courseService: CourseService,
     private authService: AuthService,
-     private dialog: MatDialog) { }
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     const currentUser = this.authService.getUser();
@@ -47,8 +47,5 @@ export class LessonListComponent implements OnInit {
       this.isCourseCreator = course.teacherId === currentUser.id;
     });
   }
-  openAddLessonDialog(): void {
-    
 
-  }
 }

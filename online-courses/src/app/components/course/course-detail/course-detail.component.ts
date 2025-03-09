@@ -5,6 +5,7 @@ import { CourseService } from '../../../services/course.service';
 import { AuthService } from '../../../services/auth.service';
 import { LessonListComponent } from "../../lesson/lesson-list/lesson-list.component";
 import Swal from 'sweetalert2';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-course-detail',
@@ -14,13 +15,16 @@ import Swal from 'sweetalert2';
   imports: [LessonListComponent]
 })
 export class CourseDetailComponent implements OnInit {
+
   course: Course | undefined;
   isLoggedIn: boolean = false;
+  teacherName: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -30,24 +34,31 @@ export class CourseDetailComponent implements OnInit {
     if (id) {
       this.courseService.getCourseById(+id).subscribe(course => {
         this.course = course;
+        this.getTeacherName(course.teacherId);
       }, error => {
         console.error('Error fetching course details:', error);
       });
     }
   }
 
-
+  getTeacherName(id: number) {
+    return this.userService.getUserById(id, this.authService.getToken()).subscribe(user => {
+     this.teacherName = user.name;
+    }, error => {
+      console.error('Error fetching teacher name:', error)
+    });
+  }
 
   enroll(courseId: number): void {
     const token = this.authService.getToken();
     const userId = this.authService.getUser().userId;
 
     this.courseService.enrollInCourse(courseId, userId, token).subscribe(() => {
-         Swal.fire({
-                  title: "Enrolled in course successfully",
-                  icon: "success",
-                  draggable: false
-                });
+      Swal.fire({
+        title: "Enrolled in course successfully",
+        icon: "success",
+        draggable: false
+      });
     }, error => {
       Swal.fire({
         title: "Error enrolling in course",
